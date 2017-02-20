@@ -24,6 +24,7 @@ borg_client__base_packages: [ 'borgbackup' ]
 # List of additional APT packages to install with :program:`borg`.
 borg_client__packages: []
                                                                    # ]]]
+
 # .. envvar:: borg_client__pip_packages [[[
 #
 # List of packages to install from PyPI using the ``pip`` command.
@@ -64,25 +65,30 @@ borg_client__keep_within: '3H'
 # Number of hourly backups to keep.
 borg_client__keep_hourly: 24
                                                                    # ]]]
+
 # .. envvar:: borg_client__daily [[[
 #
 # Number of daily backups to keep.
 borg_client__keep_daily: 30
                                                                    # ]]]
+
 # .. envvar:: borg_client__weekly [[[
 #
 borg_client__keep_weekly: 4
                                                                    # ]]]
+
 # .. envvar:: borg_client__monthly [[[
 #
 # Number of monthly backups to keep.
 borg_client__keep_monthly: 12
                                                                    # ]]]
+
 # .. envvar:: borg_client__keep_yearly [[[
 #
 # Number of yearly backups to keep.
 borg_client__keep_yearly: 5
                                                                    # ]]]
+
 # .. envvar:: borg_client__checks [[[
 #
 # List of checks to perform.
