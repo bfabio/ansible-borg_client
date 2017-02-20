@@ -18,6 +18,9 @@
   file:
     state: 'directory'
     path: '/etc/borgmatic'
+    owner: 'root'
+    group: 'root'
+    mode: '0600'
 
 - name: Copy borgmatic configuration
   template:
