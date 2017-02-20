@@ -41,6 +41,15 @@ borg_client__pip_packages: [ 'borgmatic' ]
 borg_client__backup_dirs: []
                                                                    # ]]]
 
+# .. envvar:: borg_client__borg_servers [[[
+#
+# List of servers where the backup archives are stored.
+#
+# Hostnames or IP addresses are allowed. A non-standard port can be
+# specified by using a colon (fe. server.mydomain.example:2211).
+borg_client__borg_servers: []
+                                                                   # ]]]
+
 # .. envvar:: borg_client__compression [[[
 #
 # Compression algorithm to use.
