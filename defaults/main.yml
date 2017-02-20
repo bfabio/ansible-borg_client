@@ -17,8 +17,8 @@
 #
 # List of APT packages to install for :program:`borg` support.
 borg_client__base_packages: [ 'borgbackup' ]
-
                                                                    # ]]]
+
 # .. envvar:: borg_client__packages [[[
 #
 # List of additional APT packages to install with :program:`borg`.
