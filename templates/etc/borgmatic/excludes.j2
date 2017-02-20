@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+/tmp
+*.pyc
+/home/*/.cache
+/etc/ssl
+{% for exclude in borg_client__excludes -%}
+{{ exclude }}
+{% endfor -%}

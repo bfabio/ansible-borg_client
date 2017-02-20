@@ -1,0 +1,49 @@
+---
+
+- name: Install borg packages
+  package:
+    name: '{{ item }}'
+    state: 'present'
+  with_flattened:
+    - '{{ borg_client__base_packages }}'
+    - '{{ borg_client__packages }}'
+
+- name: Install packages from PyPI
+  pip:
+    name: '{{ item }}'
+    state: 'present'
+  with_items: '{{ borg_client__pip_packages }}'
+
+- name: Create borgmatic directory
+  file:
+    state: directory
+    path: /etc/borgmatic/
+
+- name: Copy borgmatic configuration
+  template:
+    src: etc/borgmatic/config.j2
+    dest: /etc/borgmatic/{{ item }}.config
+    owner: root
+    group: root
+    mode: 0600
+  with_items: '{{ borg_client__borg_servers }}'
+
+- name: Copy borgmatic excludes
+  template:
+    src: etc/borgmatic/excludes.j2
+    dest: /etc/borgmatic/excludes
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Set up borgmatic cron jobs
+  cron:
+    name: borg backup to {{ item }}
+    hour: {{ borg_client__hour }}
+    minute: {{ borg_client__minute }}
+    job: >
+      PATH=$PATH:/usr/local/bin
+      /usr/bin/nice -n {{ borg_client__nice }}
+      /usr/bin/ionice -c {{ borg_client__ionice_class }}
+      /usr/local/bin/borgmatic -c /etc/borgmatic/{{ item }}.config
+   with_items: '{{ borg_client__borg_servers }}'

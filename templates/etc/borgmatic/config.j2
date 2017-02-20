@@ -1,0 +1,50 @@
+# {{ ansible_managed }}
+
+[location]
+# Space-separated list of source directories to backup.
+# Globs are expanded.
+source_directories: {{ borg_client__backup_dirs|join(' ') }} /etc
+
+# Stay in same file system (do not cross mount points).
+#one_file_system: True
+
+# Alternate Borg remote executable (defaults to "borg"):
+#remote_path: borg1
+
+# Path to local or remote repository.
+repository: ssh://borg@{{ item }}/srv/borg/{{ ansible_fqdn }}.borg
+
+[storage]
+# Passphrase to unlock the encryption key with. Only use on repositories that
+# were initialized with passphrase/repokey encryption.
+# encryption_passphrase: foo
+
+# Type of compression to use when creating archives. See
+# https://borgbackup.readthedocs.org/en/stable/usage.html#borg-create
+# for details. Defaults to no compression.
+compression: {{ borg_client__compression }}
+
+# Umask to be used for borg create.
+#umask: 0740
+
+[retention]
+# Retention policy for how many backups to keep in each category. See
+# https://borgbackup.readthedocs.org/en/stable/usage.html#borg-prune for details.
+keep_within: {{ borg_client__keep_within }}
+keep_hourly: {{ borg_client__keep_hourly }}
+keep_daily: {{ borg_client__keep_daily }}
+keep_weekly: {{ borg_client__keep_weekly }}
+keep_monthly: {{ borg_client__keep_monthly }}
+keep_yearly: {{ borg_client__keep_yearly }}
+
+#prefix: sourcehostname
+
+[consistency]
+# Space-separated list of consistency checks to run: "repository", "archives",
+# or both. Defaults to both. Set to "disabled" to disable all consistency
+# checks. See https://borgbackup.readthedocs.org/en/stable/usage.html#borg-check
+# for details.
+checks: {{ borg_client__checks|join(' ') }}
+
+# For Borg only, you can restrict the number of checked archives to the last n.
+check_last: {{ borg_client_check_last }}

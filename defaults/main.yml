@@ -1,0 +1,154 @@
+---
+# .. vim: foldmarker=[[[,]]]:foldmethod=marker
+
+# debops.borg_client default variables [[[
+# =================================
+
+# .. contents:: Sections
+#    :local:
+#
+# .. include:: includes/all.rst
+
+
+# General configuration [[[
+# -------------------------
+
+# .. envvar:: borg_client__base_packages [[[
+#
+# List of APT packages to install for :program:`borg` support.
+borg_client__base_packages: [ 'borgbackup' ]
+
+                                                                   # ]]]
+# .. envvar:: borg_client__packages [[[
+#
+# List of additional APT packages to install with :program:`borg`.
+borg_client__packages: []
+                                                                   # ]]]
+# .. envvar:: borg_client__pip_packages [[[
+#
+# List of packages to install from PyPI using the ``pip`` command.
+borg_client__pip_packages: [ 'borgmatic' ]
+                                                                   # ]]]
+                                                                   # ]]]
+
+# Backup configuration [[[
+# -------------------------
+
+# .. envvar:: borg_client__backup_dirs [[[
+#
+# List of directories' absolute paths to backup. Shell globs are expanded.
+borg_client__backup_dirs: []
+                                                                   # ]]]
+
+# .. envvar:: borg_client__compression [[[
+#
+# Compression algorithm to use.
+#
+# See https://borgbackup.readthedocs.org/en/stable/usage.html#borg-create
+# for all the algorithms available.
+#
+# Use 'none' to disable compression.
+borg_client__compression: 'lz4'
+                                                                   # ]]]
+
+# .. envvar:: borg_client__keep_within [[[
+#
+# Keep backups within the given time interval.
+#
+# More details at https://borgbackup.readthedocs.io/en/stable/usage.html#borg-prune
+borg_client__keep_within: '3H'
+                                                                   # ]]]
+
+# .. envvar:: borg_client__hourly [[[
+#
+# Number of hourly backups to keep.
+borg_client__keep_hourly: 24
+                                                                   # ]]]
+# .. envvar:: borg_client__daily [[[
+#
+# Number of daily backups to keep.
+borg_client__keep_daily: 30
+                                                                   # ]]]
+# .. envvar:: borg_client__weekly [[[
+#
+borg_client__keep_weekly: 4
+                                                                   # ]]]
+# .. envvar:: borg_client__monthly [[[
+#
+# Number of monthly backups to keep.
+borg_client__keep_monthly: 12
+                                                                   # ]]]
+# .. envvar:: borg_client__keep_yearly [[[
+#
+# Number of yearly backups to keep.
+borg_client__keep_yearly: 5
+                                                                   # ]]]
+# .. envvar:: borg_client__checks [[[
+#
+# List of checks to perform.
+#
+# Possible checks are:
+# - 'repository': checks for repository integrity.
+# - 'archives': checks for archives integrity in the repository.
+borg_client__checks:
+    - 'repository'
+    - 'archives'
+                                                                   # ]]]
+# .. envvar:: borg_client__keep_check_last [[[
+#
+# Check only the given number of archives (if the 'archives' check is enabled)
+borg_client__check_last: 3
+                                                                   # ]]]
+                                                                   # ]]]
+
+# Scheduled job configuration [[[
+# -------------------------------
+
+# The variables below define :program:`borg` jobs managed by the :program:`borg_client`
+# Ansible module. See :ref:`borg_client__ref_jobs` for more details.
+
+# .. envvar:: borg_client__default_jobs [[[
+#
+# YAML dictionary with a set of default :program:`borg_client` jobs to configure on
+# a host (currently none).
+borg_client__nice: 19
+
+                                                                   # ]]]
+# .. envvar:: borg_client__dependent_jobs [[[
+#
+# YAML dictionary with a set of :program:`borg_client` jobs defined by other Ansible
+# roles through the role dependent variables.
+borg_client__ionice_class: 3
+
+                                                                   # ]]]
+# .. envvar:: borg_client__jobs [[[
+#
+# YAML dictionary with a set of :program:`borg_client` jobs defined for all hosts in
+# the Ansible inventory.
+borg_client__hour: 23
+
+                                                                   # ]]]
+# .. envvar:: borg_client__group_jobs [[[
+#
+# YAML dictionary with a set of :program:`borg_client` jobs defined for hosts in
+# a given Ansible inventory group.
+borg_client__minute: 0
+                                                                   # ]]]
+                                                                   # ]]]
+
+# Role-dependent configuration [[[
+# --------------------------------
+
+# .. envvar:: borg_client__apt_preferences__dependent_list [[[
+#
+# Configuration for the ``debops.apt_preferences role``. Get borg from backports
+# on Debian jessie.
+borg_client__apt_preferences__dependent_list:
+
+  - package: 'borgbackup'
+    backports: [ 'jessie' ]
+    reason: 'Jessie does not have a borg package in main'
+    role: 'debops.borg_client'
+                                                                   # ]]]
+                                                                   # ]]]
+                                                                   # ]]]
