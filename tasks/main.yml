@@ -16,31 +16,31 @@
 
 - name: Create borgmatic directory
   file:
-    state: directory
-    path: /etc/borgmatic/
+    state: 'directory'
+    path: '/etc/borgmatic'
 
 - name: Copy borgmatic configuration
   template:
-    src: etc/borgmatic/config.j2
-    dest: /etc/borgmatic/{{ item }}.config
-    owner: root
-    group: root
-    mode: 0600
+    src: 'etc/borgmatic/config.j2'
+    dest: '/etc/borgmatic/{{ item }}.config'
+    owner: 'root'
+    group: 'root'
+    mode: '0600'
   with_items: '{{ borg_client__borg_servers }}'
 
 - name: Copy borgmatic excludes
   template:
-    src: etc/borgmatic/excludes.j2
-    dest: /etc/borgmatic/excludes
-    owner: root
-    group: root
-    mode: 0644
+    src: 'etc/borgmatic/excludes.j2'
+    dest: '/etc/borgmatic/excludes'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
 
 - name: Set up borgmatic cron jobs
   cron:
-    name: borg backup to {{ item }}
-    hour: {{ borg_client__hour }}
-    minute: {{ borg_client__minute }}
+    name: 'borg backup to {{ item }}'
+    hour: '{{ borg_client__hour }}'
+    minute: '{{ borg_client__minute }}'
     job: >
       PATH=$PATH:/usr/local/bin
       /usr/bin/nice -n {{ borg_client__nice }}
