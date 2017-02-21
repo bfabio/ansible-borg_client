@@ -120,6 +120,12 @@ borg_client__checks:
 # Check only the given number of archives (if the 'archives' check is enabled)
 borg_client__check_last: 3
                                                                    # ]]]
+
+# .. envvar:: borg_client__repositories_dir [[[
+#
+# Absolute directory path where to save the backups on the backup server.
+borg_server__repositories_dir: '/srv/borg'
+                                                                   # ]]]
                                                                    # ]]]
 
 # Scheduled job configuration [[[
