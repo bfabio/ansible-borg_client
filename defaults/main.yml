@@ -56,6 +56,20 @@ borg_client__backup_dirs: []
 borg_client__borg_servers: []
                                                                    # ]]]
 
+# .. envvar:: borg_client__encryption_passphrase [[[
+#
+# Set the passphrase for the repository encryption.
+#
+# Defaults to empty.
+#
+# Note that encryption is still enabled even if the passphrase is empty.
+#
+# This allows changing the passphrase at a later time with "borg change-passphrase",
+# which would not be possible on a non-encrypted repository without rebuilding the
+# whole repository.
+borg_client__encryption_passphrase: ''
+                                                                   # ]]]
+
 # .. envvar:: borg_client__compression [[[
 #
 # Compression algorithm to use.

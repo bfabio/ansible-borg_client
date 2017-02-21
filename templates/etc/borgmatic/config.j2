@@ -17,7 +17,7 @@ repository: ssh://{{ borg_client__user }}@{{ item }}{{ borg_server__repositories
 [storage]
 # Passphrase to unlock the encryption key with. Only use on repositories that
 # were initialized with passphrase/repokey encryption.
-# encryption_passphrase: foo
+encryption_passphrase: {{ borg_client__encryption_passphrase }}
 
 # Type of compression to use when creating archives. See
 # https://borgbackup.readthedocs.org/en/stable/usage.html#borg-create
