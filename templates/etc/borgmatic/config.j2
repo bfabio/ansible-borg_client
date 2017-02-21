@@ -12,7 +12,7 @@ source_directories: {{ borg_client__backup_dirs|join(' ') }} /etc
 #remote_path: borg1
 
 # Path to local or remote repository.
-repository: ssh://borg@{{ item }}/srv/borg/{{ ansible_fqdn }}.borg
+repository: ssh://{{ borg_client__user }}@{{ item }}/srv/borg/{{ ansible_fqdn }}.borg
 
 [storage]
 # Passphrase to unlock the encryption key with. Only use on repositories that

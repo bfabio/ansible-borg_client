@@ -35,6 +35,12 @@ borg_client__pip_packages: [ 'borgmatic' ]
 # Backup configuration [[[
 # -------------------------
 
+# .. envvar:: borg_client__borg [[[
+#
+# User on the borg server.
+borg_client__user: 'borg'
+                                                                   # ]]]
+
 # .. envvar:: borg_client__backup_dirs [[[
 #
 # List of directories' absolute paths to backup. Shell globs are expanded.
